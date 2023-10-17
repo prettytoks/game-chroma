@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar} from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+//import { release } from 'os';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -29,8 +30,9 @@ interface Game {
   franchises: string[];
   game_modes: string[];
   similar_games: string[];
-  artworks: string[];
   companies: string[];
+  artworks: number[];
+
 }
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -63,11 +65,29 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <>       
 
-      <img
+      {/*
+      <Image
         src={`https://images.igdb.com/igdb/image/upload/t_1080p_2x/${game.artworks[0]?.image_id}.jpg`}
+        //src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.artworks[0]?.image_id}.jpg`}
         alt={game.title}
-        style={{height: "45vh", width: '100%', objectFit: 'cover'}}
+        height='60vh'
+        width='100%'
+        //object-fit='cover'
+        //style={{height: "45vh", width: '100%', objectFit: 'cover'}}
       />
+      */}
+            
+        {game.artworks?.slice(0,1).map((artwork: any, index: number) => (
+          
+          <Image key={artwork.id}  
+            src={`https://images.igdb.com/igdb/image/upload/t_1080p_2x/${artwork.image_id}.jpg`}
+            alt={game.title}
+            height='60vh'
+            width='100%'
+          />
+
+        ))}
+
                       
       <div style={{ margin: '60px 20px 30px 20px ', padding: '15px' }}>
 
@@ -93,7 +113,9 @@ export default function Page({ params }: { params: { slug: string } }) {
 
             <Paragraph style={{ fontSize: '16px' }}> {game.summary} </Paragraph>
 
-            <Paragraph style={{ fontSize: '16px'}}  type="secondary">{game.release_dates[0]?.human} </Paragraph>
+            <Paragraph style={{ fontSize: '16px'}}  type="secondary" >
+              {format(new Date(game.first_release_date), 'MMMM dd, yyyy')}
+            </Paragraph>
 
             <FontAwesomeIcon
               icon={faStar}
@@ -143,7 +165,17 @@ export default function Page({ params }: { params: { slug: string } }) {
 
                     <Text style={{ fontSize: '18px', fontWeight: '600' }}>Player Perspective: </Text>
                     <Text style={{ fontSize: '16px' }} type="secondary">
+                      {/*}
                       {game.player_perspectives[0]?.name}
+                      */}
+                      
+                      {game.player_perspectives?.map((player_perspective: any, index: number) => (
+                        <Text key={player_perspective.id}  style={{ fontSize: '16px' }} type="secondary">
+                           {player_perspective.name}
+                         
+                        </Text>
+                      ))}
+
                     </Text>
 
                   </Col>
@@ -171,7 +203,18 @@ export default function Page({ params }: { params: { slug: string } }) {
 
                       <div style={{ margin: '8px 0' }}>
                         <Text style={{ fontSize: '18px', fontWeight: '600' }}>Game Mode: </Text>
+                        {/*
                         <Text style={{ fontSize: '16px' }} type="secondary"> {game.game_modes[0]?.name} </Text>
+                        */}
+                      
+                      {game.game_modes?.map((game_mode: any, index: number) => (
+                        <Text key={game_mode.id}  style={{ fontSize: '16px' }} type="secondary">
+                          {game_mode.name}
+                          {index !== game.game_modes.length - 1 && ', '}
+              
+                        </Text>
+                      ))}
+
                       </div>
 
                       <Text style={{ fontSize: '18px', fontWeight: '600' }}>Themes: </Text>
@@ -203,16 +246,11 @@ export default function Page({ params }: { params: { slug: string } }) {
             <Col key={similarGame.id} xs={24} sm={12} md={8} lg={6}>
 
                 <Link href={`/${similarGame.slug}`}>
-                  
-                    <Card
-                      hoverable
-                      cover={
-                        <img
-                          src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${similarGame.cover_image_id}.jpg`}
-                          alt={similarGame.title}
-                        />
-                      }
-                    >
+
+                <Card
+                  hoverable
+                  cover={<Image src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${similarGame.cover_image_id}.jpg`} alt={similarGame.title}/>}
+                >
                       
                       <Title level={4}>{similarGame.title}</Title>
               

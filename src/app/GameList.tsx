@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Card, Row, Col, Pagination, Input, Typography } from 'antd';
+import { Card, Row, Col, Pagination, Input, Typography, Image } from 'antd';
 import { API_URL } from './api';
 import Link from 'next/link'
 import { SearchOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar} from '@fortawesome/free-solid-svg-icons';
+//import Image from 'next/image';
 
 const { Title, Text } = Typography;
 
@@ -95,7 +96,7 @@ export default function GameList() {
               <Link href={`/${game.slug}`}>
                 <Card
                   hoverable
-                  cover={<img src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover_image_id}.jpg`} alt={game.title} />}
+                  cover={<Image src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover_image_id}.jpg`} alt={game.title}/>}
                 >
          
                     <Title level={4}>{game.title}</Title>

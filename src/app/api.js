@@ -1,7 +1,4 @@
-
 import axios from 'axios';
-
-//export const API_URL = 'https://api.gridlist.com/video_games';
 
 export const API_URL = 'https://api.gridlist.com/video_games?sort=popularity.desc&page=1';
 
