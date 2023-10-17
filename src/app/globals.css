@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/*
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+*/
+
+body{
+  background-color:rgb(237, 237, 237)
+}
+
+.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*margin: 30px;*/
+  /*border-bottom: #333 2px solid;*/
+  padding: 25px;
+  box-shadow: 2px 4px 7px rgb(161, 153, 153);
+}
+
+/*
+
+.dark-mode-switch {
+  background: #333; /* Replace with your desired background color *
+  display: flex;
+  align-items: center;
+}
+
+
+.dark{
+  background-color: blue;
+}
+.light{
+  background-color: yellow;
+}
+
+.sun-icon {
+  margin-right: 4px;
+}
+
+.moon-icon {
+  margin-left: 4px;
+  /*background-color: rgb(145, 145, 24);*
+}
+*/
+
