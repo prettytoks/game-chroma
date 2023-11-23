@@ -1,13 +1,12 @@
 'use client';
 
-import { fetchGame } from '../api';
 import { useEffect, useState } from 'react';
 import { Card, Row, Col, Typography, Image } from 'antd';
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar} from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-//import { release } from 'os';
+import axios from 'axios';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -39,20 +38,22 @@ export default function Page({ params }: { params: { slug: string } }) {
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     const fetchGameData = async () => {
       try {
-        const gameData = await fetchGame(params.slug);
-        setGame(gameData.video_game);
+        const response = await axios.get(`/api/single-game?slug=${params.slug}`);
+        setGame(response.data.video_game);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching game details:', error);
         setLoading(false);
       }
     };
-
+  
     fetchGameData();
   }, [params.slug]);
+
 
   if (loading) {
     return <p>Loading...</p>;

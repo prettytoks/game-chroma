@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { Card, Row, Col, Pagination, Input, Typography, Image } from 'antd';
-import { API_URL } from './api';
 import Link from 'next/link'
 import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -37,7 +36,7 @@ export default function GameList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get('/api/games');
         setVideoGames(response.data.video_games);
         setLoading(false);
       } catch (error) {
